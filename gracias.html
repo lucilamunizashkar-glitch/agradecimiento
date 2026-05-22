@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Gracias por votar! - Cristalia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0d0614;
+            --bg-card: #1c112d;
+            --accent-gold: #ffd700;
+            --accent-purple: #a855f7;
+            --text-light: #f3eefa;
+            --text-muted: #bfaecf;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: radial-gradient(circle at center, #23123a 0%, #0d0614 100%);
+            text-align: center;
+        }
+
+        /* Contenedor central de agradecimiento */
+        .thank-you-card {
+            background-color: var(--bg-card);
+            padding: 50px 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            max-width: 550px;
+            width: 100%;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Ícono místico/destello sobre el título */
+        .icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-gold);
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        /* Botón "Volver a inicio" - Mismo estilo dorado pero adaptado como enlace */
+        .btn-volver {
+            display: inline-block;
+            text-decoration: none;
+            padding: 15px 40px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #0d0614;
+            background: linear-gradient(45deg, var(--accent-gold), #ffe875);
+            border-radius: 50px;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-volver:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.6);
+            background: linear-gradient(45deg, #ffe875, var(--accent-gold));
+        }
+
+        /* Animación de entrada suave */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animación de flotado para el ícono */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Adaptación para celulares */
+        @media (max-width: 480px) {
+            .thank-you-card {
+                padding: 35px 20px;
+            }
+            h1 {
+                font-size: 1.9rem;
+            }
+            p {
+                font-size: 1.05rem;
+            }
+            .btn-volver {
+                font-size: 1rem;
+                padding: 12px 30px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="thank-you-card">
+        <span class="icon">✦</span>
+        
+        <h1>¡Gracias por tu voto!</h1>
+        
+        <p>
+            Tu apoyo es fundamental para que la luz vuelva a reflejarse en los vitrales del castillo y rescatar al reino de Sylvaris de la oscuridad.
+        </p>
+        
+        <a href="index.html" class="btn-volver">Volver a inicio</a>
+    </div>
+
+</body>
+</html>
