@@ -11,12 +11,13 @@
 
     <style>
         :root {
-            --bg-dark: #0d0614;
-            --bg-card: #1c112d;
-            --accent-gold: #ffd700;
-            --accent-purple: #a855f7;
-            --text-light: #f3eefa;
-            --text-muted: #bfaecf;
+            --bg-cosmic: #0a041c;     
+            --magic-purple: #3a125d;  
+            --magic-magenta: #70197d; 
+            --accent-gold: #fff176;   
+            --deep-gold: #f5b041;     
+            --text-light: #f5effa;    
+            --text-muted: #d2c4e3;    
         }
 
         * {
@@ -25,8 +26,14 @@
             padding: 0;
         }
 
+        /* Textura global de crayón/porosa aplicada a la raíz y cursor estrella personalizado */
+        html {
+            filter: url(#crayon-texture);
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><defs><linearGradient id='gold-grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23ffffff'/><stop offset='40%' stop-color='%23fff176'/><stop offset='100%' stop-color='%23f5b041'/></linearGradient></defs><path d='M16 2 L18.5 10.5 L27 11 L20 16.5 L23 25 L16 20 L9 25 L12 16.5 L5 11 L13.5 10.5 Z' fill='url(%23gold-grad)' stroke='%230a041c' stroke-width='1.2'/><path d='M16 2 L16 20 M27 11 L16 16.5 M9 25 L16 16.5 M5 11 L16 16.5' stroke='%2370197d' stroke-width='0.6' opacity='0.7'/></svg>") 16 16, auto;
+        }
+
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-cosmic);
             color: var(--text-light);
             font-family: 'Quicksand', sans-serif;
             display: flex;
@@ -34,112 +41,330 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            background: radial-gradient(circle at center, #23123a 0%, #0d0614 100%);
-            text-align: center;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* Contenedor central de agradecimiento */
+        /* Asegurar que los botones interactivos mantengan el cursor místico */
+        a, button {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><defs><linearGradient id='gold-grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23ffffff'/><stop offset='40%' stop-color='%23fff176'/><stop offset='100%' stop-color='%23f5b041'/></linearGradient></defs><path d='M16 2 L18.5 10.5 L27 11 L20 16.5 L23 25 L16 20 L9 25 L12 16.5 L5 11 L13.5 10.5 Z' fill='url(%23gold-grad)' stroke='%230a041c' stroke-width='1.2'/><path d='M16 2 L16 20 M27 11 L16 16.5 M9 25 L16 16.5 M5 11 L16 16.5' stroke='%2370197d' stroke-width='0.6' opacity='0.7'/></svg>") 16 16, pointer;
+        }
+
+        /* ==========================================================================
+           FONDO CON ILUSTRACIONES, CRISTALES Y ESTRELLAS EN MOVIMIENTO
+           ========================================================================== */
+        .fantasy-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+            background: url('image_25a0c5.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .divine-rays {
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: conic-gradient(
+                from 0deg at 50% 35%,
+                transparent 0deg,
+                rgba(255, 241, 118, 0.05) 15deg,
+                transparent 30deg,
+                rgba(112, 25, 125, 0.08) 45deg,
+                transparent 70deg,
+                rgba(255, 241, 118, 0.04) 105deg,
+                transparent 140deg,
+                rgba(112, 25, 125, 0.06) 200deg,
+                transparent 240deg,
+                rgba(255, 241, 118, 0.05) 290deg,
+                transparent 360deg
+            );
+            filter: blur(4px);
+            mix-blend-mode: screen;
+            animation: raysOrbit 140s linear infinite;
+        }
+
+        .hanging-star-container {
+            position: absolute;
+            top: 0;
+            z-index: -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: starSway 6s ease-in-out infinite alternate;
+            transform-origin: top center;
+        }
+        
+        .star-wire {
+            width: 1.5px;
+            background: linear-gradient(to bottom, rgba(255,241,118,0), rgba(255,241,118,0.55));
+        }
+        
+        .fairy-star {
+            position: relative;
+            width: 55px; 
+            height: 55px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-gold) 60%, var(--deep-gold) 100%);
+            clip-path: polygon(50% 0%, 54% 33%, 85% 15%, 63% 46%, 100% 50%, 63% 54%, 85% 85%, 54% 67%, 50% 100%, 46% 67%, 15% 85%, 37% 54%, 0% 50%, 37% 46%, 15% 15%, 46% 33%);
+            filter: drop-shadow(0 0 12px rgba(255,241,118,0.9));
+        }
+
+        .fairy-star::after {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+            background: #ffffff;
+            clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+            filter: blur(1px);
+        }
+        
+        .st-1 { left: 5%; .star-wire { height: 190px; } animation-delay: -0.5s; }
+        .st-2 { left: 16%; .star-wire { height: 110px; } .fairy-star { transform: scale(0.7); } animation-delay: -3.2s; }
+        .st-3 { left: 28%; .star-wire { height: 230px; } .fairy-star { transform: scale(0.9); } animation-delay: -1.8s; }
+        .st-4 { right: 28%; .star-wire { height: 140px; } .fairy-star { transform: scale(0.8); } animation-delay: -4.5s; }
+        .st-5 { right: 15%; .star-wire { height: 210px; } .fairy-star { transform: scale(0.75); } animation-delay: -2.1s; }
+        .st-6 { right: 4%; .star-wire { height: 150px; } .fairy-star { transform: scale(1.15); } animation-delay: -0.2s; }
+
+        /* Cristales hiper-vivos */
+        .vitraux-crystal {
+            position: absolute;
+            opacity: 0;
+            animation: floatCrystal 16s linear infinite;
+            filter: drop-shadow(0px 0px 2px rgba(255, 215, 0, 1)) drop-shadow(0 2px 5px rgba(0,0,0,0.4));
+        }
+        
+        .crystal-rhombus { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+        .crystal-triangle { clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
+        .crystal-kite { clip-path: polygon(50% 0%, 100% 35%, 50% 100%, 0% 35%); }
+
+        .sparkle-dust {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 4px var(--accent-gold));
+            animation: floatDust 10s linear infinite;
+        }
+
+        /* 🌟 TRAIL DE ESTRELLITAS PARA EL CURSOR */
+        .cursor-star {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 14px;
+            height: 14px;
+            background: linear-gradient(135deg, #ffffff, var(--accent-gold));
+            clip-path: polygon(50% 0%, 63% 37%, 100% 50%, 63% 63%, 50% 100%, 37% 63%, 0% 50%, 37% 37%);
+            pointer-events: none;
+            z-index: 9999;
+            animation: fallAndFade 0.8s ease-out forwards;
+            filter: drop-shadow(0 0 4px var(--accent-gold));
+        }
+
+        /* ==========================================================================
+           CONTENEDOR CENTRAL DE AGRADECIMIENTO (ESTILO INFO-CARD)
+           ========================================================================== */
         .thank-you-card {
-            background-color: var(--bg-card);
-            padding: 50px 40px;
-            border-radius: 16px;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-            max-width: 550px;
+            position: relative;
+            background: rgba(13, 6, 28, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            padding: 60px 45px;
+            border-radius: 24px;
+            border: 1px solid rgba(245, 176, 65, 0.35);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.85),
+                inset 0 0 30px rgba(112, 25, 125, 0.3);
+            max-width: 600px;
             width: 100%;
-            animation: fadeIn 0.8s ease-out;
+            text-align: center;
+            animation: fadeIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            overflow: hidden;
+            z-index: 2;
         }
 
-        /* Ícono místico/destello sobre el título */
+        .thank-you-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('image_24bf52.jpg') no-repeat center bottom;
+            background-size: cover;
+            opacity: 0.08; 
+            mix-blend-mode: overlay;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .thank-you-card * {
+            position: relative;
+            z-index: 1;
+        }
+
         .icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--accent-gold);
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            text-shadow: 0 0 15px rgba(255, 241, 118, 0.7);
             margin-bottom: 20px;
             display: inline-block;
-            animation: float 3s ease-in-out infinite;
+            animation: floatIcon 3s ease-in-out infinite;
         }
 
         h1 {
             font-family: 'Cinzel', serif;
             color: var(--accent-gold);
-            font-size: 2.4rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            font-size: 2.6rem;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(255, 241, 118, 0.6);
+            letter-spacing: 1px;
+            border-bottom: 1px dashed rgba(245, 176, 65, 0.3);
+            padding-bottom: 15px;
         }
 
         p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--text-light);
-            line-height: 1.6;
-            margin-bottom: 40px;
+            line-height: 1.7;
+            margin-bottom: 45px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            text-align: center;
+            opacity: 0.95;
         }
 
-        /* Botón "Volver a inicio" - Mismo estilo dorado pero adaptado como enlace */
+        /* Botón "Volver a inicio" - Adaptado perfectamente al estilo místico */
         .btn-volver {
             display: inline-block;
             text-decoration: none;
-            padding: 15px 40px;
+            padding: 18px 65px;
             font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-size: 1.4rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #0d0614;
-            background: linear-gradient(45deg, var(--accent-gold), #ffe875);
-            border-radius: 50px;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
-            transition: all 0.3s ease-in-out;
+            letter-spacing: 4px;
+            color: #120324;
+            
+            background: linear-gradient(135deg, #fff9c4 0%, #fff176 40%, #f5b041 100%);
+            border: 2px solid #ffffff;
+            border-radius: 40px;
+            
+            box-shadow: 
+                0 12px 35px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(255, 241, 118, 0.5),
+                inset 0 2px 4px #fff;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .btn-volver:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 35px rgba(255, 215, 0, 0.6);
-            background: linear-gradient(45deg, #ffe875, var(--accent-gold));
+            transform: scale(1.05) translateY(-4px);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.6),
+                0 0 55px var(--accent-gold),
+                0 0 25px rgba(255,255,255,0.8);
+            letter-spacing: 5px;
         }
 
-        /* Animación de entrada suave */
+        /* ANIMACIONES EN GENERAL */
+        @keyframes raysOrbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes starSway {
+            0% { transform: rotate(-4deg) translateX(-3px); }
+            100% { transform: rotate(4deg) translateX(3px); }
+        }
+        @keyframes floatDust {
+            0% { transform: translateY(105vh) scale(0.4); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-5vh) scale(0.9); opacity: 0; }
+        }
+        @keyframes floatCrystal {
+            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.95; }
+            90% { opacity: 0.95; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+        @keyframes fallAndFade {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--mx), var(--my)) scale(0.3) rotate(180deg); opacity: 0; }
         }
 
-        /* Animación de flotado para el ícono */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        /* Adaptación para celulares */
-        @media (max-width: 480px) {
-            .thank-you-card {
-                padding: 35px 20px;
-            }
-            h1 {
-                font-size: 1.9rem;
-            }
-            p {
-                font-size: 1.05rem;
-            }
-            .btn-volver {
-                font-size: 1rem;
-                padding: 12px 30px;
-                width: 100%;
-            }
+        /* Adaptación para dispositivos móviles */
+        @media (max-width: 768px) {
+            .thank-you-card { padding: 40px 25px; border-radius: 16px; width: 95%; }
+            h1 { font-size: 2.1rem; }
+            p { font-size: 1.1rem; }
+            .btn-volver { font-size: 1.1rem; padding: 15px 35px; width: 100%; letter-spacing: 2px; }
+            .hanging-star-container { display: none; }
         }
     </style>
 </head>
 <body>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <filter id="crayon-texture" x="0%" y="0%" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+            <feBlend mode="multiply" in="displaced" in2="noise" opacity="0.15"/>
+        </filter>
+    </svg>
+
+    <div class="fantasy-background">
+        <div class="divine-rays"></div>
+        
+        <div class="hanging-star-container st-1"><div class="star-wire"></div><div class="fairy-star"></div></div>
+        <div class="hanging-star-container st-2"><div class="star-wire"></div><div class="fairy-star"></div></div>
+        <div class="hanging-star-container st-3"><div class="star-wire"></div><div class="fairy-star"></div></div>
+        <div class="hanging-star-container st-4"><div class="star-wire"></div><div class="fairy-star"></div></div>
+        <div class="hanging-star-container st-5"><div class="star-wire"></div><div class="fairy-star"></div></div>
+        <div class="hanging-star-container st-6"><div class="star-wire"></div><div class="fairy-star"></div></div>
+
+        <div class="vitraux-crystal crystal-rhombus" style="left: 3%; width: 14px; height: 22px; background: rgba(0, 213, 255, 0.9); animation-duration: 13s; animation-delay: -2s;"></div>
+        <div class="vitraux-crystal crystal-triangle" style="left: 12%; width: 25px; height: 25px; background: rgba(255, 0, 255, 0.85); animation-duration: 18s; animation-delay: -5s;"></div>
+        <div class="vitraux-crystal crystal-kite" style="left: 22%; width: 18px; height: 28px; background: rgba(255, 20, 147, 0.9); animation-duration: 15s; animation-delay: -1s;"></div>
+        <div class="vitraux-crystal crystal-rhombus" style="left: 34%; width: 10px; height: 16px; background: rgba(255, 235, 0, 0.95); animation-duration: 11s; animation-delay: -7s;"></div>
+        <div class="vitraux-crystal crystal-triangle" style="left: 45%; width: 16px; height: 16px; background: rgba(0, 255, 128, 0.85); animation-duration: 20s; animation-delay: -3s;"></div>
+        <div class="vitraux-crystal crystal-kite" style="left: 55%; width: 22px; height: 34px; background: rgba(160, 32, 240, 0.85); animation-duration: 14s; animation-delay: -11s;"></div>
+        <div class="vitraux-crystal crystal-rhombus" style="left: 68%; width: 26px; height: 38px; background: rgba(255, 69, 0, 0.85); animation-duration: 17s; animation-delay: -4s;"></div>
+        <div class="vitraux-crystal crystal-triangle" style="left: 78%; width: 12px; height: 12px; background: rgba(0, 245, 255, 0.9); animation-duration: 12s; animation-delay: -9s;"></div>
+        <div class="vitraux-crystal crystal-kite" style="left: 88%; width: 15px; height: 24px; background: rgba(255, 140, 0, 0.9); animation-duration: 19s; animation-delay: -2.5s;"></div>
+        <div class="vitraux-crystal crystal-rhombus" style="left: 95%; width: 20px; height: 30px; background: rgba(148, 0, 211, 0.9); animation-duration: 16s; animation-delay: -6s;"></div>
+        
+        <div class="vitraux-crystal crystal-triangle" style="left: 8%; width: 18px; height: 18px; background: rgba(255, 0, 128, 0.9); animation-duration: 15s; animation-delay: -4s;"></div>
+        <div class="vitraux-crystal crystal-kite" style="left: 18%; width: 20px; height: 30px; background: rgba(0, 255, 200, 0.85); animation-duration: 12s; animation-delay: -8s;"></div>
+        <div class="vitraux-crystal crystal-rhombus" style="left: 29%; width: 15px; height: 25px; background: rgba(255, 215, 0, 0.95); animation-duration: 19s; animation-delay: -11s;"></div>
+        <div class="vitraux-crystal crystal-triangle" style="left: 40%; width: 22px; height: 22px; background: rgba(186, 85, 211, 0.9); animation-duration: 14s; animation-delay: -2s;"></div>
+        <div class="vitraux-crystal crystal-kite" style="left: 50%; width: 14px; height: 22px; background: rgba(255, 50, 50, 0.9); animation-duration: 16s; animation-delay: -5s;"></div>
+        <div class="vitraux-crystal crystal-rhombus" style="left: 62%; width: 18px; height: 28px; background: rgba(30, 144, 255, 0.9); animation-duration: 21s; animation-delay: -13s;"></div>
+        <div class="vitraux-crystal crystal-triangle" style="left: 73%; width: 15px; height: 15px; background: rgba(0, 250, 154, 0.9); animation-duration: 13s; animation-delay: -7s;"></div>
+        <div class="vitraux-crystal crystal-kite" style="left: 83%; width: 24px; height: 36px; background: rgba(255, 20, 147, 0.85); animation-duration: 17s; animation-delay: -3s;"></div>
+        <div class="vitraux-crystal crystal-rhombus" style="left: 91%; width: 12px; height: 18px; background: rgba(255, 255, 0, 0.95); animation-duration: 11s; animation-delay: -9s;"></div>
+        <div class="vitraux-crystal crystal-triangle" style="left: 97%; width: 16px; height: 16px; background: rgba(0, 191, 255, 0.9); animation-duration: 15s; animation-delay: -1s;"></div>
+
+        <div class="sparkle-dust" style="left: 7%; width: 2px; height: 2px; animation-duration: 8s; animation-delay: -1s;"></div>
+        <div class="sparkle-dust" style="left: 25%; width: 3px; height: 3px; animation-duration: 12s; animation-delay: -4s;"></div>
+        <div class="sparkle-dust" style="left: 50%; width: 2px; height: 2px; animation-duration: 10s; animation-delay: -2s;"></div>
+        <div class="sparkle-dust" style="right: 25%; width: 3px; height: 3px; animation-duration: 11s; animation-delay: -3s;"></div>
+        <div class="sparkle-dust" style="right: 9%; width: 2px; height: 2px; animation-duration: 9s; animation-delay: -5s;"></div>
+    </div>
 
     <div class="thank-you-card">
         <span class="icon">✦</span>
@@ -153,5 +378,34 @@
         <a href="https://lucilamunizashkar-glitch.github.io/Cristalia/" class="btn-volver">Volver a inicio</a>
     </div>
 
+    <script>
+        document.querySelectorAll('a, .btn-volver').forEach(element => {
+            element.addEventListener('mousemove', (e) => {
+                if (Math.random() > 0.25) return; // Control de rendimiento ambiental
+
+                const star = document.createElement('div');
+                star.classList.add('cursor-star');
+
+                star.style.left = `${e.clientX}px`;
+                star.style.top = `${e.clientY}px`;
+
+                const moveX = (Math.random() - 0.5) * 60;
+                const moveY = Math.random() * 50 + 40; // Caída vertical mágica
+
+                star.style.setProperty('--mx', `${moveX}px`);
+                star.style.setProperty('--my', `${moveY}px`);
+
+                const size = Math.random() * 8 + 6;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+
+                document.body.appendChild(star);
+
+                star.addEventListener('animationend', () => {
+                    star.remove();
+                });
+            });
+        });
+    </script>
 </body>
 </html>
