@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explora Otros Mundos</title>
   <style>
-    /* Fondo oscuro para que resalte la iluminación (puedes cambiarlo por tu fondo original) */
+    /* Fondo oscuro idéntico a tu interfaz para que resalte el brillo */
     body {
-      background-color: #121214; 
+      background-color: #0b0e14; 
       color: #ffffff;
       font-family: sans-serif;
       margin: 0;
@@ -17,58 +17,73 @@
     h2 {
       text-transform: uppercase;
       letter-spacing: 2px;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
       font-size: 24px;
+      text-align: center;
     }
 
-    /* Contenedor principal en cuadrícula (sin recuadros) */
+    /* CONTENEDOR DE LA GRILLA 
+       Totalmente limpio: sin bordes, sin fondos, sin recuadros.
+    */
     .grid-proyectos {
       display: grid;
-      grid-template-columns: repeat(4, 1fr); /* 4 columnas fijas */
-      gap: 40px;                             /* Espacio generoso entre logos */
+      grid-template-columns: repeat(4, 1fr); /* 4 columnas perfectamente alineadas */
+      gap: 45px;                             /* Espacio libre entre logos */
       max-width: 1200px;
       margin: 0 auto;
       justify-items: center;
       align-items: center;
     }
 
-    /* Estilo para los enlaces de los logos */
+    /* Enlaces contenedores de las imágenes */
     .logo-item {
       display: flex;
       justify-content: center;
       align-items: center;
       text-decoration: none;
       width: 100%;
-      height: 150px; /* Altura máxima controlada para alineación homogénea */
+      height: 160px; /* Contenedor invisible para mantener simetría */
     }
 
-    /* Comportamiento base de las imágenes de los logos */
+    /* ESTADO BASE DE LOS LOGOS (PNGs)
+    */
     .logo-item img {
-      max-width: 85%;
-      max-height: 85%;
+      max-width: 90%;
+      max-height: 90%;
       object-fit: contain;
       display: block;
       
-      /* Transición suave para que la animación no sea brusca */
-      transition: transform 0.3s ease, filter 0.3s ease; 
+      /* Filtro inicial: Podés darles un toque de opacidad si querés que resalten más al hacer hover */
+      opacity: 0.85; 
+
+      /* Transición fluida para que el tamaño y el brillo aparezcan suavemente */
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                  filter 0.3s ease, 
+                  opacity 0.3s ease; 
     }
 
-    /* ==========================================
-       EFECTO INTERACTIVO AL PASAR EL MOUSE (HOVER)
-       ========================================== */
+    /* ===================================================
+       EFECTO HOVER: BRILLO EN EL CONTORNO DEL PNG
+       ===================================================
+    */
     .logo-item:hover img {
-      /* Aumenta un poquitito de tamaño (8% extra) */
-      transform: scale(1.08); 
+      opacity: 1; /* Se vuelve 100% nítido */
       
-      /* Crea la iluminación sutil amarilla siguiendo la silueta del PNG transparente */
-      filter: drop-shadow(0 0 15px rgba(255, 235, 120, 0.75)); 
+      /* Aumenta un poquitito de tamaño de forma sutil */
+      transform: scale(1.06); 
+      
+      /* drop-shadow hace que el contorno exacto del dibujo brille.
+         Parámetros: (0 desplazamiento X, 0 desplazamiento Y, 15px de radio de difuminado, color amarillo traslúcido)
+      */
+      filter: drop-shadow(0 0 15px rgba(255, 225, 100, 0.85)) 
+              drop-shadow(0 0 5px rgba(255, 200, 50, 0.4)); /* Doble capa de brillo para más intensidad */
     }
 
-    /* Responsivo: Si la pantalla es más chica (celulares), pasa a 2 columnas */
-    @media (max-width: 768px) {
+    /* Diseño adaptativo para pantallas más chicas (Celulares / Tablets) */
+    @media (max-width: 900px) {
       .grid-proyectos {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 30px;
       }
     }
   </style>
@@ -112,7 +127,7 @@
       <img src="feel_better_abyss.png" alt="Feel Better Abyss">
     </a>
     <a href="#" class="logo-item">
-      <img src="proyecto_engranaje.png" alt="Proyecto 11"> 
+      <img src="cristalia.logo2.png" alt="Cristalia"> 
     </a>
     <a href="#" class="logo-item">
       <img src="proyecto_dylan.png" alt="Proyecto Dylan">
