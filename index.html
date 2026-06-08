@@ -38,9 +38,9 @@
             font-family: 'Quicksand', sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px;
             overflow-x: hidden;
             position: relative;
         }
@@ -135,7 +135,7 @@
         .st-5 { right: 15%; .star-wire { height: 210px; } .fairy-star { transform: scale(0.75); } animation-delay: -2.1s; }
         .st-6 { right: 4%; .star-wire { height: 150px; } .fairy-star { transform: scale(1.15); } animation-delay: -0.2s; }
 
-        /* Cristales hiper-vivos */
+        /* Cristales */
         .vitraux-crystal {
             position: absolute;
             opacity: 0;
@@ -155,7 +155,7 @@
             animation: floatDust 10s linear infinite;
         }
 
-        /* 🌟 TRAIL DE ESTRELLITAS PARA EL CURSOR */
+        /* TRAIL DE ESTRELLITAS PARA EL CURSOR */
         .cursor-star {
             position: fixed;
             top: 0;
@@ -170,29 +170,38 @@
             filter: drop-shadow(0 0 4px var(--accent-gold));
         }
 
+        /* Envoltorio principal para centrar las dos tarjetas secuencialmente */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            max-width: 650px;
+            width: 100%;
+            z-index: 2;
+        }
+
         /* ==========================================================================
-           CONTENEDOR CENTRAL DE AGRADECIMIENTO (ESTILO INFO-CARD)
+           CONTENEDORES DE CONTENIDO (ESTILO INFO-CARD & THANK YOU CARD)
            ========================================================================== */
-        .thank-you-card {
+        .thank-you-card, .info-card {
             position: relative;
             background: rgba(13, 6, 28, 0.85);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
-            padding: 60px 45px;
+            padding: 50px 40px;
             border-radius: 24px;
             border: 1px solid rgba(245, 176, 65, 0.35);
             box-shadow: 
                 0 30px 60px rgba(0, 0, 0, 0.85),
                 inset 0 0 30px rgba(112, 25, 125, 0.3);
-            max-width: 600px;
             width: 100%;
             text-align: center;
             animation: fadeIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             overflow: hidden;
-            z-index: 2;
         }
 
-        .thank-you-card::before {
+        .thank-you-card::before, .info-card::before {
             content: "";
             position: absolute;
             top: 0;
@@ -201,13 +210,13 @@
             height: 100%;
             background: url('image_24bf52.jpg') no-repeat center bottom;
             background-size: cover;
-            opacity: 0.08; 
+            opacity: 0.04; 
             mix-blend-mode: overlay;
             pointer-events: none;
             z-index: 0;
         }
 
-        .thank-you-card * {
+        .thank-you-card *, .info-card * {
             position: relative;
             z-index: 1;
         }
@@ -221,15 +230,23 @@
             animation: floatIcon 3s ease-in-out infinite;
         }
 
-        h1 {
+        h1, h2 {
             font-family: 'Cinzel', serif;
             color: var(--accent-gold);
-            font-size: 2.6rem;
-            margin-bottom: 25px;
             text-shadow: 0 0 15px rgba(255, 241, 118, 0.6);
             letter-spacing: 1px;
             border-bottom: 1px dashed rgba(245, 176, 65, 0.3);
             padding-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
         }
 
         p {
@@ -242,7 +259,7 @@
             opacity: 0.95;
         }
 
-        /* Botón "Volver a inicio" - Adaptado perfectamente al estilo místico */
+        /* Botón "Volver a inicio" */
         .btn-volver {
             display: inline-block;
             text-decoration: none;
@@ -253,11 +270,9 @@
             text-transform: uppercase;
             letter-spacing: 4px;
             color: #120324;
-            
             background: linear-gradient(135deg, #fff9c4 0%, #fff176 40%, #f5b041 100%);
             border: 2px solid #ffffff;
             border-radius: 40px;
-            
             box-shadow: 
                 0 12px 35px rgba(0, 0, 0, 0.5),
                 0 0 30px rgba(255, 241, 118, 0.5),
@@ -274,7 +289,53 @@
             letter-spacing: 5px;
         }
 
-        /* ANIMACIONES EN GENERAL */
+        /* ==========================================================================
+           SECCIÓN DE PROYECTOS / GRID MULTIMUNDO
+           ========================================================================== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .project-link {
+            display: block;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 241, 118, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+        }
+
+        .project-link img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+            transition: transform 0.3s ease;
+        }
+
+        .project-link:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: var(--accent-gold);
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.6),
+                0 0 15px rgba(255, 241, 118, 0.3);
+        }
+
+        .project-link:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ANIMACIONES */
         @keyframes raysOrbit {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -309,33 +370,36 @@
 
         /* Adaptación para dispositivos móviles */
         @media (max-width: 768px) {
-            .thank-you-card { padding: 40px 25px; border-radius: 16px; width: 95%; }
-            h1 { font-size: 2.1rem; }
-            p { font-size: 1.1rem; }
+            body { padding: 20px 10px; }
+            .main-container { gap: 25px; }
+            .thank-you-card, .info-card { padding: 35px 20px; border-radius: 18px; }
+            h1 { font-size: 2.0rem; }
+            h2 { font-size: 1.5rem; }
+            p { font-size: 1.1rem; margin-bottom: 30px; }
             .btn-volver { font-size: 1.1rem; padding: 15px 35px; width: 100%; letter-spacing: 2px; }
             .hanging-star-container { display: none; }
+            .projects-grid { grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)); gap: 12px; }
         }
     </style>
-    <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '966120399597903');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=966120399597903&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+    
     <script>
-  fbq('track', 'ViewContent');
-</script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '966120399597903');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=966120399597903&ev=PageView&noscript=1"
+    /></noscript>
+    <script>
+      fbq('track', 'ViewContent');
+    </script>
 </head>
 <body>
 
@@ -386,18 +450,18 @@ src="https://www.facebook.com/tr?id=966120399597903&ev=PageView&noscript=1"
         <div class="sparkle-dust" style="right: 9%; width: 2px; height: 2px; animation-duration: 9s; animation-delay: -5s;"></div>
     </div>
 
-    <div class="thank-you-card">
-        <span class="icon">✦</span>
+    <div class="main-container">
         
-        <h1>¡Gracias por tu voto!</h1>
-        
-        <p>
-            Tu apoyo es fundamental para que la luz vuelva a reflejarse en los vitrales del castillo y rescatar al reino de Sylvaris de la oscuridad.
-        </p>
-        
-        <a href="https://lucilamunizashkar-glitch.github.io/Cristalia/" class="btn-volver">Volver a inicio</a>
-    </div>
-    <article class="info-card">
+        <div class="thank-you-card">
+            <span class="icon">✦</span>
+            <h1>¡Gracias por tu voto!</h1>
+            <p>
+                Tu apoyo es fundamental para que la luz vuelva a reflejarse en los vitrales del castillo y rescatar al reino de Sylvaris de la oscuridad.
+            </p>
+            <a href="https://lucilamunizashkar-glitch.github.io/Cristalia/" class="btn-volver">Volver a inicio</a>
+        </div>
+
+        <article class="info-card">
             <h2>Aventúrate en otros mundos</h2>
             <div class="projects-grid">
                 <a href="https://arcetaller.wixsite.com/sweetescape" target="_blank" class="project-link"><img src="LogoSweetEscape.png" alt="Sweet Escape"></a>
@@ -410,11 +474,13 @@ src="https://www.facebook.com/tr?id=966120399597903&ev=PageView&noscript=1"
                 <a href="https://francorodriguez1.wixsite.com/umbra-morfeus-grimor" target="_blank" class="project-link"><img src="Sin título-1.png" alt="Umbra Morfeus Grimor"></a>
                 <a href="https://maitevictorial.wixsite.com/maitelopezrosende" target="_blank" class="project-link"><img src="Patocalipsis.png" alt="Proyecto Maite"></a>
                 <a href="https://abrilroldan4.wixsite.com/abrilroldan" target="_blank" class="project-link"><img src="logo.png" alt="Proyecto Abril"></a>
-                <a href= "https://ignacioisastimical.wixsite.com/battlecoliseum"  target="_blank" class="project-link"><img src="ignacio isasti micale- Battle coliseum Logo.png" alt="Proyecto Nacho"></a>
-                <a href= "https://bdylan3.wixsite.com/website"  target="_blank" class="project-link"><img src="c" alt="Proyecto Dylan"></a>
-                <a href= "https://ejamardotraverso.wixsite.com/merienda-marina"  target="_blank" class="project-link"><img src="logo (1).png" alt="Proyecto Emma"></a>
+                <a href="https://ignacioisastimical.wixsite.com/battlecoliseum" target="_blank" class="project-link"><img src="ignacio isasti micale- Battle coliseum Logo.png" alt="Proyecto Nacho"></a>
+                <a href="https://bdylan3.wixsite.com/website" target="_blank" class="project-link"><img src="c" alt="Proyecto Dylan"></a>
+                <a href="https://ejamardotraverso.wixsite.com/merienda-marina" target="_blank" class="project-link"><img src="logo (1).png" alt="Proyecto Emma"></a>
             </div>
         </article>
+        
+    </div>
 
     <script>
         document.querySelectorAll('a, .btn-volver').forEach(element => {
